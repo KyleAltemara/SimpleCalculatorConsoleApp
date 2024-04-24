@@ -1,43 +1,42 @@
 ﻿using System.Text.RegularExpressions;
+using CalculatorLibrary;
 
 namespace SimpleCalculatorConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             bool endApp = false;
             // Display title as the C# console calculator app.
             Console.WriteLine("Console Calculator in C#\r");
             Console.WriteLine("------------------------\n");
 
+            Calculator calculator = new();
             while (!endApp)
             {
-                // Declare variables and set to empty.
-                // Use Nullable types (with ?) to match type of System.Console.ReadLine
-                string? numInput1 = "";
-                string? numInput2 = "";
-                double result = 0;
 
                 // Ask the user to type the first number.
                 Console.Write("Type a number, and then press Enter: ");
-                numInput1 = Console.ReadLine();
+                // Declare variables and set to empty.
+                // Use Nullable types (with ?) to match type of System.Console.ReadLine
+                string? numInput1 = Console.ReadLine();
 
-                double cleanNum1 = 0;
+                double cleanNum1;
                 while (!double.TryParse(numInput1, out cleanNum1))
                 {
-                    Console.Write("This is not valid input. Please enter a numeric value: ");
+                    Console.Write("This is not valid input. Please enter an integer value: ");
                     numInput1 = Console.ReadLine();
                 }
 
                 // Ask the user to type the second number.
                 Console.Write("Type another number, and then press Enter: ");
-                numInput2 = Console.ReadLine();
+                string? numInput2 = Console.ReadLine();
 
-                double cleanNum2 = 0;
+                double cleanNum2;
                 while (!double.TryParse(numInput2, out cleanNum2))
                 {
-                    Console.Write("This is not valid input. Please enter a numeric value: ");
+                    Console.Write("This is not valid input. Please enter an integer value: ");
                     numInput2 = Console.ReadLine();
                 }
 
@@ -60,7 +59,7 @@ namespace SimpleCalculatorConsoleApp
                 {
                     try
                     {
-                        result = Calculator.DoOperation(cleanNum1, cleanNum2, op);
+                        double result = calculator.DoOperation(cleanNum1, cleanNum2, op);
                         if (double.IsNaN(result))
                         {
                             Console.WriteLine("This operation will result in a mathematical error.\n");
@@ -80,7 +79,6 @@ namespace SimpleCalculatorConsoleApp
 
                 Console.WriteLine("\n"); // Friendly linespacing.
             }
-
             return;
         }
     }
